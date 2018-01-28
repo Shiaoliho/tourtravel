@@ -1,0 +1,19 @@
+<ion-view view-title="Trips">
+  <ion-content>
+
+    <ion-list>
+      <ion-item ng-repeat="trip in trips" style="display: -webkit-box;" href="#/app/trips/{{trip.id}}">
+        <span class="inline-text">{{trip.trip_name}}</span>
+          <span class="inline-icon"><i ng-click="deleteTrip(trip)" class=" ion-trash-a navicon"></i>
+          <i ui-sref="app.cities({id: trip.id})" class="ion-map navicon pos-icon"></i></span>
+      </ion-item>
+    </ion-list>
+
+    <ion-item ui-sref="app.addtrips" class="ng-list-float-right" style="display: -webkit-box;">
+      <span class="inline-text">增加新的旅程</span>
+      <i class="ion-ios-plus-outline inline-icon navicon pos-icon"></i>
+    </ion-item>
+
+
+  </ion-content>
+</ion-view>

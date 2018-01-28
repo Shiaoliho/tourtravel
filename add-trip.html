@@ -1,0 +1,31 @@
+<ion-view view-title="add a trip">
+    <ion-content>
+      <h2>增加行程</h2>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">旅行名稱: </span>
+        <input type="text" select-all-in-input ng-model="tripInput.name" placeholder="ex. Southern Europe and Western Asia">
+        </input>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">旅行描述: </span>
+        <textarea class="text-area" select-all-in-input ng-model="tripInput.description" placeholder="add some notes for yourself, friends and family about the trip your about to embark on!">
+        </textarea>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">開始城市: </span>
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="text" ng-autocomplete ng-disabletap select-all-in-input ng-onenter="logThings()" ng-model="result.location" placeholder="city where your trip begins">
+      </label>
+
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">敘述: </span>
+        <textarea class="text-area" select-all-in-input ng-model="cityInput.description" placeholder="add some notes for yourself, friends and family about the city your traveling to.">
+        </textarea>
+      </label>
+
+      <button type="submit" ng-click="createTrip()" class="button button-positive">儲存地點</button>
+    </ion-content>
+
+</ion-view>

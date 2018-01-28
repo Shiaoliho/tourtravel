@@ -1,0 +1,74 @@
+<ion-view view-title="Cities">
+
+  <ion-nav-bar>
+    <ion-nav-buttons side="left">
+      <a ng-click="goBackState()" class="button button-icon icon ion-ios-arrow-back"></a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <span ng-if="!guestMode">
+        <i ng-hide="cityAddDisplay" ng-click="cityChangeDisplay()" class="ion-ios-plus-outline navicon"></i>
+        <i ng-show="cityAddDisplay" ng-click="cityChangeDisplay()" class="ion-navicon-round navicon"></i>
+      </span>
+    </ion-nav-buttons>
+
+  </ion-nav-bar>
+
+  <ion-content>
+
+    <div class="bar bar-header item-input-inset {{searchBarClass}}">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="text" ng-autocomplete ng-disabletap select-all-in-input ng-onenter="searchMap(result.location)" ng-model="result.location" placeholder="Search">
+          </label>
+          <div class="buttons">
+            <button class="button button-outline button-positive" ng-click="result.location=''">取消</button>
+          </div>
+    </div>
+
+    <div class="card" id="destinationDisplay" ng-if="destinationDisplay" ng-click="cardDisplayChange()">
+      <ion-scroll direction="y" style="height:74vh">
+        <div class="item item-divider item-calm">
+          <div class="title card-title card-text">{{googDetails.name}}</div>
+        </div>
+
+        <img ng-if="googDetails.photos[0].getUrl({'maxWidth': 275, 'maxHeight': 300})" class="card-text card-img card-img-city" src="{{googDetails.photos[0].getUrl({'maxWidth': 270, 'maxHeight': 300})}}">
+        <p class="card-heading"ng-if="dbDetails.city_description">敘述:</p>
+        <p class="card-text"ng-if="dbDetails.city_description">{{dbDetails.city_description}}</p>
+
+        <div class="buttons">
+          <i ng-click="deleteCity({{dbDetails}})" class="inline-icon card-button ion-trash-a navicon"></i>
+        </div>
+      </ion-scroll>
+    </div>
+
+    <div id="cityMap" class="{{cityMapClass}}" data-tap-disabled="true"></div>
+
+      <ion-scroll style="height:35vh" direction="y" scrollbar-y="false">
+        <ion-list class="{{cityListClass}}">
+          <ion-item ng-repeat="city in cities">
+            <span class="inline-text">{{city.letter}}{{city.city_name}}
+            <p class="list-marker-p"><img class="gold-star-inlist" src="img/Gold_Star.png"> {{city.marker_count}}</p>
+            </span>
+
+            <span class="inline-icon"><i ng-click="displayFire(city.city_place_id,city)" class=" ion-ios-search navicon"></i>
+            <i ng-click="sendToMarkerMap(city)" class="ion-map navicon pos-icon"></i></span>
+
+          </ion-item>
+        </ion-list>
+      </ion-scroll>
+
+
+    <ion-footer-bar ng-class="footerbarclass" ng-click="displayFire(googDetails.place_id)" align-title="left" class="bar-assertive">
+      <h1 class="title">{{googDetails.name}}</h1>
+      <div class="buttons" ng-click="modal.show(); stopProp($event)">
+        <button class="star-button button">
+          <div id="star-button-div">
+            <img class="gold-star" src="img/Gold_Star.png">
+          </div>
+          <p class="star-text-p">儲存位置</p>
+        </button>
+      </div>
+    </ion-footer-bar>
+
+  </ion-content>
+</ion-view>
