@@ -1,0 +1,38 @@
+<ion-modal-view view-title="Signup">
+    <ion-content>
+    <div class="bar bar-header item-input-inset">
+      <h1 class="title">註冊</h1>
+      <div class="buttons">
+        <button class="button button-clear" ng-click="closeLogin()">關閉</button>
+      </div>
+    </div>
+
+    <form ng-submit="doSignUp()">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="user.email">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="user.password">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="user.doublecheckpassword">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">姓名</span>
+          <input type="text" ng-model="user.first_name">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">暱稱</span>
+          <input type="text" ng-model="user.last_name">
+        </label>
+
+        <button class="button button-block button-positive" type="submit">註冊</button>
+        <a ui-sref="login" class="button button-calm button-block button-outline">已經有一個帳戶？ 登錄！</a>
+
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

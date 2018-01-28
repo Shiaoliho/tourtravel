@@ -1,0 +1,79 @@
+<ion-view view-title="Locations">
+
+  <ion-nav-bar>
+    <ion-nav-buttons side="left">
+      <a ng-click="goBackState()" class="button button-icon icon ion-ios-arrow-back"></a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <i ng-if="guestMode" ng-click="modal.show(); getGuestsTrips(markers)" class="ion-share navicon"></i>
+      <span ng-if="!guestMode">
+        <i ng-hide="markerAddDisplay" ng-click="markerChangeDisplay()" class="ion-ios-plus-outline navicon"></i>
+        <i ng-show="markerAddDisplay" ng-click="markerChangeDisplay()" class="ion-navicon-round navicon"></i>
+      </span>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+
+    <div class="bar bar-header {{searchBarClass}} item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="text" ng-autocomplete ng-disabletap select-all-in-input ng-onenter="searchMap(result.location)" ng-model="result.location" placeholder="Search">
+          </label>
+          <div class="buttons">
+            <button class="button button-outline button-positive" ng-click="result.location=''">取消</button>
+          </div>
+    </div>
+
+    <div id="markerMap" class="map-full {{markerMapClass}}" data-tap-disabled="true"></div>
+
+    <div class="card" id="destinationDisplay" ng-if="destinationDisplay" ng-click="displayFire()">
+      <ion-scroll direction="y" style="height:74vh">
+        <div class="item item-divider item-calm">
+          <div class="title card-title card-text">{{details.name}}</div>
+        </div>
+        <h4 class="card-text-address">{{details.formatted_address}}</h2>
+        <img class="card-text card-img" src="{{details.photos[0].getUrl({'maxWidth': 270, 'maxHeight': 300})}}">
+        <p class="card-text">評分: {{details.rating}}</p>
+        <p class="card-text" ng-if="details.price_level">價格等級: {{details.price_level}}</p>
+        <p class="card-text">小時:</p>
+        <p class="card-text-inset">{{details.opening_hours.weekday_text[0]}}<br> {{details.opening_hours.weekday_text[1]}}<br>{{details.opening_hours.weekday_text[2]}}<br>{{details.opening_hours.weekday_text[3]}}<br>{{details.opening_hours.weekday_text[4]}}<br>{{details.opening_hours.weekday_text[5]}}<br>{{details.opening_hours.weekday_text[6]}}<br>{{details.opening_hours.weekday_text[7]}}</p>
+
+        <p class="card-text">電話號碼: {{details.international_phone_number}}</p>
+        <a href="{{details.webiste}}">{{details.webiste}}</a>
+        <div class="buttons">
+          <i ng-click="deleteMarker(details.markerDbObj)" class="inline-icon card-button ion-trash-a navicon"></i>
+        </div>
+      </ion-scroll>
+    </div>
+
+
+    <ion-scroll direction="y" style="height:35vh">
+      <ion-list class="{{markerListClass}}">
+        <ion-item ng-repeat="marker in markers">
+          <span class="inline-text">{{marker.letter}}{{marker.marker_name}}
+
+          </span>
+          <span class="inline-icon"><i ng-click="displayFire(marker)" class="icon small_button navicon ion-ios-search"></i></span>
+        </ion-item>
+        <ion-item ng-if="!markers.length" ng-click="markerChangeDisplay()">
+        <span class="inline-text">創建一個新的標記</span>
+        <i class="ion-ios-plus-outline inline-icon navicon pos-icon"></i>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+
+      <ion-footer-bar ng-click="displayFire()" align-title="left" ng-class="footerbarclass" class="bar-assertive">
+        <h1 class="title">{{details.name}}</h1>
+        <div class="buttons" ng-click="modal.show(); stopProp($event)">
+          <button class="star-button button">
+            <div id="star-button-div">
+              <img class="gold-star" src="img/Gold_Star.png">
+            </div>
+            <p class="star-text-p">儲存</p>
+          </button>
+        </div>
+      </ion-footer-bar>
+
+  </ion-content>
+</ion-view>

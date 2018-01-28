@@ -1,0 +1,31 @@
+<ion-modal-view>
+
+    <ion-header-bar>
+      <h1 class="title">保存目的地</h1>
+      <div class="buttons">
+        <button class="button button-outline button-positive" ng-click="modal.hide()">取消</button>
+      </div>
+    </ion-header-bar>
+
+    <ion-content>
+      <span ng-if=guestMode>
+        <ion-list>
+          <ion-item ng-click="showImportConfirm(trip)" ng-repeat="trip in trips" style="display: -webkit-box;">
+            <span class="inline-text">{{trip.trip_name}}</span>
+          </ion-item>
+        </ion-list>
+      </span>
+
+      <span ng-if=!guestMode>
+        <h2>{{details.formatted_address}}</h2>
+        <p>評分: {{details.rating}}</p>
+        <p>價格等級: {{details.price_level}}</p>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">敘述</span>
+          <textarea class="text-area" select-all-in-input ng-model="description.input" placeholder="add some notes for yourself, friends and family!">
+          </textarea>
+        </label>
+        <button type="submit" ng-click="saveLocation(); modal.hide()" class="button button-positive">儲存</button>
+      </span>
+    </ion-content>
+</ion-modal-view>
